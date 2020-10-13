@@ -18,7 +18,7 @@
           "lookup": "properties.NAME",
           "from": {
             "data": {
-              "url": "data/honey.csv"
+              "url": "./data/honey.csv"
             },
             "key": "State",
             "fields": [
