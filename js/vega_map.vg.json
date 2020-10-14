@@ -7,7 +7,7 @@
     "type": "albersUsa"
   },
   "data": {
-    "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+    "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/us_10_topo.csv",
     "format": {
       "type": "topojson",
       "feature": "states"
