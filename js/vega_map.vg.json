@@ -7,7 +7,7 @@
     "type": "albersUsa"
   },
   "data": {
-    "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/us_10_topo.csv",
+    "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/us_10_topo.json",
     "format": {
       "type": "topojson",
       "feature": "states"
@@ -15,27 +15,23 @@
   },
   "transform": [
     {
-      "lookup": "State",
+      "lookup": "properties.name",
       "from": {
         "data": {
           "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
         },
-        "key": "name",
-        "fields": [
-          "Honey_producing_colonies",
-          "Year"
-        ]
+        "key": "State",
+        "fields": ["Year", "Honey_producing_colonies"]
       }
     }
   ],
   "mark": {
     "type": "geoshape",
-    "fill": "lightgray",
     "stroke": "darkgray"
   },
   "encoding": {
     "color": {
-      "field": ""
+      "field": "Honey_producing_colonies", "type":"quantitative"
     }
   }
 }
