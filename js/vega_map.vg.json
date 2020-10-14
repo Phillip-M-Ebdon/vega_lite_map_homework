@@ -1,41 +1,41 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "title": "Vega Lite Map",
+  "title": "Vega Lite Chart",
   "width": 800,
   "height": 600,
   "projection": {
     "type": "albersUsa"
   },
-      "data": {
-        "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
-        "format": {
-          "type": "topojson",
-          "feature": "states"
-        }
-      },
-      "transform": [
-        {
-          "lookup": "properties.NAME",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
-            },
-            "key": "State",
-            "fields": [
-              "Honey_producing_colonies"
-            ]
-          }
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "State",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
         },
-        {"calculate": "datum.Honey_producing_colonies + 0.1", "as" :  "Colonies"}
-      ],
+        "key": "name",
+        "fields": [
+          "Honey_producing_colonies",
+          "Year"
+        ]
+      }
+    }
+  ],
   "mark": {
-    "type": "geoshape"
+    "type": "geoshape",
+    "fill": "lightgray",
+    "stroke": "darkgray"
   },
   "encoding": {
     "color": {
-      "field": "Colonies",
-      "type": "quantitative",
-      "scale": {"type": "log"}
+      "field": ""
     }
   }
 }

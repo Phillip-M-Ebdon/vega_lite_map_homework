@@ -13,13 +13,24 @@
     <!-- CSS file -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
 
+    <!-- Import csv -->
+    <link rel="import" type="text/plain" href="data/honey.csv">
+
 </head>
 <body>
 
     <div id="map"></div>
+    <br>
+    <div id="chart"></div>
     <script>
 
         const map_spec = "js/vega_map.vg.json";
+        const chart_spec = "js/chart.vg.json";
+
+        vegaEmbed('#chart', chart_spec).then( () => {
+            console.log('success');
+        }).catch(console.error);
+
         vegaEmbed('#map', map_spec).then( () => {
             console.log('success');
         }).catch(console.error);

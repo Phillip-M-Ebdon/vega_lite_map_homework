@@ -1,0 +1,28 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Vega Lite Chart",
+  "width": 800,
+  "height": 600,
+
+  "data": {
+    "url": "data/honey.csv"
+  },
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Year", "type": "ordinal"
+    },
+    "y": {
+      "field": "Honey_producing_colonies", "type": "quantitative"
+    },
+    "size": {
+      "field": "Yield_per_colony", "type": "quantitative"
+    },
+    "color": {
+      "field": "Average_price_per_pound", "type": "quantitative"
+    }
+  },
+  "tooltip": [
+    {"field": "properties.NAME", "type": "nominal", "title": "State"}
+  ]
+}

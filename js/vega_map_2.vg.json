@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Vega Lite Chart",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
+  },
+  "transform": [
+    {
+      "lookup": "states",
+      "from": {
+        "data": {
+          "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+          "format": {
+            "type": "topojson",
+            "feature": "states"
+          }
+        },
+        "key": "State"
+      },
+      "as": "geo"
+    },
+    {"filter": {"field": "Year", "equal":"2019"}}
+  ],
+  "projection": {
+    "type": "albersUsa"
+  },
+  "mark": "geoshape",
+  "encoding": {
+    "shape": {"field": "geo", "type": "geojson"},
+    "color": {
+      "field": "Honey_producing_colonies", "type": "quantitative"
+    }
+  }
+}
