@@ -1,6 +1,26 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "title": "Number of Colonies (approx), 2000",
+  "config": {
+    "background": "#262626",
+    "text": {
+      "color": "antiquewhite",
+      "fill": "antiquewhite"
+    },
+    "axis": {
+      "labelColor": "antiquewhite",
+      "tickColor": "antiquewhite",
+      "titleColor": "antiquewhite",
+      "domainColor": "antiquewhite",
+      "gridColor": "antiquewhite"
+    },
+    "legend": {
+      "labelColor": "antiquewhite"
+    },
+    "title": {
+      "color": "antiquewhite"
+    }
+  },
   "data": {
     "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
   },
@@ -49,7 +69,8 @@
             "shape": {"field": "geo", "type": "geojson"},
             "color": {
               "condition": {
-                "scale": {"type": "quantize", "scheme": "oranges", "count": 3},
+                "scale": {"type": "threshold", "domain": [10000, 50000, 100000, 150000],
+                  "scheme": "oranges"},
                 "selection": "pts",
                 "field": "Approx Colony Count",
                 "type": "quantitative"
@@ -59,7 +80,7 @@
             "tooltip": [{"field": "State"}, {"field": "Approx Colony Count"}]
           },
           "selection": {
-            "pts": {"type": "single", "on": "mouseover", "fields": ["State"]},
+            "pts": {"type": "single", "on": "click", "fields": ["State"]},
             "map_filt": {
               "init": {"Year": 2019},
               "type": "single",
@@ -84,14 +105,23 @@
       "mark": "circle",
       "encoding": {
         "x": {"field": "Year", "type": "ordinal"},
-        "y": {"field": "Average_price_per_pound", "type": "quantitative"},
+        "y": {
+          "field": "Average_price_per_pound",
+          "type": "quantitative",
+          "scale": {"domain": [0, 9]}
+        },
         "size": {
-          "scale": {"type": "quantize"},
+          "scale": {"type": "threshold", "domain": [25, 50, 100],
+            "range": [1, 50, 200, 500]
+          },
           "field": "Yield_per_colony",
           "type": "quantitative"
         },
         "color": {
-          "scale": {"type": "quantize", "scheme": "oranges", "count": 3},
+          "scale": {
+            "type": "threshold", "domain": [10000, 50000, 100000, 150000], "range":  [1, 5, 10, 20],
+            "scheme": "oranges"
+          },
           "field": "Approx Colony Count",
           "type": "quantitative"
         },
