@@ -26,16 +26,22 @@
     <div id="chart"></div>
     <script>
 
-        const map_spec = "js/vega_map_2.vg.json";
-        const chart_spec = "js/chart.vg.json";
+        // const map_spec = "js/vega_map_2.vg.json";
+        // const chart_spec = "js/chart.vg.json";
+        //
+        // vegaEmbed('#chart', chart_spec).then( () => {
+        //     console.log('success');
+        // }).catch(console.error);
+        //
+        // vegaEmbed('#map', map_spec).then( () => {
+        //     console.log('success');
+        // }).catch(console.error);
 
-        vegaEmbed('#chart', chart_spec).then( () => {
+        const spec = "js/concatted_charts.vg.json";
+        vegaEmbed('#map', spec).then( () => {
             console.log('success');
         }).catch(console.error);
 
-        vegaEmbed('#map', map_spec).then( () => {
-            console.log('success');
-        }).catch(console.error);
     </script>
 </body>
 </html>

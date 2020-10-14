@@ -1,12 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "title": "Vega Lite Chart",
+  "title": "State Number of colonies by year",
   "width": 800,
   "height": 600,
 
   "data": {
     "url": "data/honey.csv"
   },
+  "transform": [
+    {"calculate": "datum.Honey_producing_colonies", "as": "Approx Colony Count"}
+  ],
   "mark": "circle",
   "encoding": {
     "x": {
@@ -16,13 +19,16 @@
       "field": "Honey_producing_colonies", "type": "quantitative"
     },
     "size": {
+      "scale": {"type": "quantize"},
       "field": "Yield_per_colony", "type": "quantitative"
     },
     "color": {
+      "scale": {"type":"quantize","scheme": "oranges", "count":  5},
       "field": "Average_price_per_pound", "type": "quantitative"
-    }
-  },
-  "tooltip": [
-    {"field": "properties.NAME", "type": "nominal", "title": "State"}
-  ]
+    },
+    "tooltip": [
+      {"field": "State"},
+      {"field": "Approx Colony Count"}
+    ]
+  }
 }

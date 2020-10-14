@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Number of Colonies (approx), 2000",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Phillip-M-Ebdon/vega_lite_map_homework/main/data/honey.csv"
+  },
+  "vconcat": [
+    {
+      "layer": [
+        {
+          "data": {
+            "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+            "format": {
+              "type": "topojson",
+              "feature": "states"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "lightgray",
+            "stroke": "white"
+          }
+        },
+        {
+          "width": 600,
+          "height": 500,
+          "transform": [
+            {"calculate": "year(datum.Year)", "as": "Year"},
+            {"filter": {"selection": "map_filt"}},
+            {
+              "lookup": "State",
+              "from": {
+                "data": {
+                  "url": "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+                  "format": {"type": "topojson", "feature": "states"}
+                },
+                "key": "properties.name"
+              },
+              "as": "geo"
+            },
+            {
+              "calculate": "datum.Honey_producing_colonies * 300",
+              "as": "Approx Colony Count"
+            }
+          ],
+          "projection": {"type": "albersUsa"},
+          "mark": {"type": "geoshape"},
+          "encoding": {
+            "shape": {"field": "geo", "type": "geojson"},
+            "color": {
+              "condition": {
+                "scale": {"type": "quantize", "scheme": "oranges", "count": 3},
+                "selection": "pts",
+                "field": "Approx Colony Count",
+                "type": "quantitative"
+              },
+              "value": "grey"
+            },
+            "tooltip": [{"field": "State"}, {"field": "Approx Colony Count"}]
+          },
+          "selection": {
+            "pts": {"type": "single", "on": "mouseover", "fields": ["State"]},
+            "map_filt": {
+              "init": {"Year": 2019},
+              "type": "single",
+              "fields": ["Year"],
+              "bind": {
+                "Year": {"input": "range", "min": 2000, "max": 2019, "step": 1}
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 600,
+      "transform": [
+        {
+          "calculate": "datum.Honey_producing_colonies * 300",
+          "as": "Approx Colony Count"
+        },
+        {"filter": {"selection": "pts"}}
+      ],
+      "mark": "circle",
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"field": "Average_price_per_pound", "type": "quantitative"},
+        "size": {
+          "scale": {"type": "quantize"},
+          "field": "Yield_per_colony",
+          "type": "quantitative"
+        },
+        "color": {
+          "scale": {"type": "quantize", "scheme": "oranges", "count": 3},
+          "field": "Approx Colony Count",
+          "type": "quantitative"
+        },
+        "tooltip": [{"field": "State"}, {"field": "Approx Colony Count"}]
+      }
+    }
+  ]
+}

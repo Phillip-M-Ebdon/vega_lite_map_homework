@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "title": "Vega Lite Chart",
+  "title": "Number of Colonies (approx), 2000",
   "width": 800,
   "height": 600,
   "data": {
@@ -26,12 +26,17 @@
         "field": "Year",
         "equal": "2000"
       }
+    },
+    {
+      "calculate":"datum.Honey_producing_colonies * 300", "as": "Approx Colony Count"
     }
   ],
   "projection": {
     "type": "albersUsa"
   },
-  "mark": {"type": "geoshape", "tooltip":{"content":"data"}},
+  "mark": {
+    "type": "geoshape"
+  },
   "encoding": {
     "shape": {
       "field": "geo",
@@ -39,12 +44,17 @@
     },
     "color": {
       "condition": {
+        "scale": {"type":"quantize","scheme": "oranges", "count":  3},
         "selection": "pts",
-        "field": "Honey_producing_colonies",
+        "field": "Approx Colony Count",
         "type": "quantitative"
       },
       "value": "grey"
-    }
+    },
+    "tooltip":[
+      {"field": "State"},
+      {"field": "Approx Colony Count"}
+    ]
   },
   "selection": {
     "pts": {
